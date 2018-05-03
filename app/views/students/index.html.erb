@@ -1,0 +1,23 @@
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>Idade</th>
+    <th>Sexo</th>
+    <th>Curso</th>
+    <th colspan="2"></th>
+  </tr>
+ 
+  <% @students.each do |student| %>
+    <tr>
+      <td><%= student.name %></td>
+      <td><%= student.age %></td>
+      <td><%= student.gender %></td>
+      <td><%= student.bachelor_degree %></td>
+      <td><%= link_to 'Mostrar', student_path(student) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Novo fodido', new_student_path %>
+
+<%= link_to 'Voltar', root_path %>

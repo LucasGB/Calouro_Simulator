@@ -1,0 +1,26 @@
+<%= form_for @student do |form| %>
+  <p>
+    <%= form.label :nome %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :idade %><br>
+    <%= form.text_field :age %>
+  </p>
+
+  <p>
+    <%= form.label :sexo %><br>
+    <%= form.text_field :gender %>
+  </p>
+
+  <p>
+    <%= form.label :curso %><br>
+    <%= form.text_field :bachelor_degree %>
+  </p>
+    
+  <p>
+    <%= form.submit %>
+  </p>
+  
+<% end %>
