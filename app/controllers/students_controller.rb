@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-  		@students = Student.all
+  		@students = current_user.students
 	end
 
 	def new
@@ -10,7 +10,7 @@ class StudentsController < ApplicationController
 	end
 
 	def create
-		@student = Student.new(student_params)
+		@student = current_user.students.build(student_params)
  
   		if @student.save
   			redirect_to @student
@@ -32,6 +32,7 @@ class StudentsController < ApplicationController
 
 	private
   		def student_params
-    		params.require(:student).permit(:name, :age, :gender, :bachelor_degree)
-  		end
+    		params.require(:student).permit(:name, :age, :gender, :bachelor_degree, :coefficient, :cash, :mood, :hunger, :health, :energy, :last_active)
+  		
+	end
 end
