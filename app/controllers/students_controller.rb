@@ -41,8 +41,10 @@ class StudentsController < ApplicationController
   		redirect_to students_path
 	end
 
-	def update
-
+	def feed
+		@student = Student.find(params[:id])
+		@student.hunger += 50
+		puts 'student fed.'
 	end
 
 	private
