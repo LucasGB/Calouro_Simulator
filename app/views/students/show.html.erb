@@ -1,3 +1,7 @@
+<head>
+	 <meta http-equiv="refresh" content="5">
+</head>
+
 <p>
   <strong>Nome:</strong>
   <%= @student.name %>
@@ -16,6 +20,31 @@
 <p>
   <strong>Curso:</strong>
   <%= @student.bachelor_degree %>
+</p>
+
+<p>
+  <strong>Mood:</strong>
+  <%= @student.mood %>
+</p>
+
+<p>
+  <strong>Hunger:</strong>
+  <%= @student.hunger %>
+</p>
+
+<p>
+  <strong>Health:</strong>
+  <%= @student.health %>
+</p>
+
+<p>
+  <strong>Energy:</strong>
+  <%= @student.energy %>
+</p>
+
+<p>
+  <strong>Ultima atualização:</strong>
+  <%= @student.updated_at %>
 </p>
 
 <%= link_to 'Voltar', students_path %>

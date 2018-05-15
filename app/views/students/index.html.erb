@@ -14,11 +14,12 @@
       <td><%= student.gender %></td>
       <td><%= student.bachelor_degree %></td>
       <td><%= link_to 'Mostrar', student_path(student) %></td>
+      <td><%= link_to 'Excluir', student_path(student), method: :delete %></td>
     </tr>
   <% end %>
 </table>
 
-<%= link_to 'Novo fodido', new_student_path %>
+<%= link_to 'Novo universitario', new_student_path %>
 
 <%= link_to 'Voltar', root_path %>
 

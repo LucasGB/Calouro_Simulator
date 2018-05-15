@@ -21,6 +21,17 @@ class StudentsController < ApplicationController
 
 	def show
 		@student = Student.find(params[:id])
+
+		delta = @student.updated_at - Time.now
+
+		@student.mood -= 2
+		@student.hunger -= 2
+		@student.health -= 2
+		@student.energy -= 2	
+
+		@student.updated_at = Time.now
+
+		@student.save
 	end
 
 	def destroy
@@ -28,6 +39,10 @@ class StudentsController < ApplicationController
   		@student.destroy
  
   		redirect_to students_path
+	end
+
+	def update
+
 	end
 
 	private
