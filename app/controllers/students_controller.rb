@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
 		@student.mood -= 2
 		@student.hunger -= 2
 		@student.health -= 2
-		@student.energy -= 2	
+		@student.energy -= 2
 
 		@student.updated_at = Time.now
 
@@ -52,7 +52,55 @@ class StudentsController < ApplicationController
 
 		puts 'FED.'
 
-		render 'show'
+		redirect_to @student
+	end
+
+	def sleep
+		@student = Student.find(params[:id])
+
+		@student.energy += 6
+		@student.health += 1
+
+		@student.updated_at = Time.now
+
+		@student.save
+
+		puts 'SLEPT.'
+
+		redirect_to @student
+
+	end
+
+	def play
+		@student = Student.find(params[:id])
+
+		@student.energy -= 6
+		@student.health += 5
+
+		@student.updated_at = Time.now
+
+		@student.save
+
+		puts 'PLAYED.'
+
+		redirect_to @student
+
+	end
+
+	def bath
+		@student = Student.find(params[:id])
+
+		@student.energy += 1
+		@student.health += 2
+
+		@student.updated_at = Time.now
+
+		@student.save
+
+		puts 'PLAYED.'
+
+		redirect_to @student
+
 	end
 
 	private

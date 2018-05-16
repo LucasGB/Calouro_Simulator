@@ -21,11 +21,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="text-center" style="border-top: none; color: #007bff; font-weight: normal">Fome</th>
+                                    <th class="text-center" style="border-top: none; color: #dc3545; font-weight: normal">Fome</th>
                                     <th class="text-center" style="border-top: none; color: #28a745; font-weight: normal">Higiene</th>
-                                    <th class="text-center" style="border-top: none; color: #17a2b8; font-weight: normal">Intligência</th>
-                                    <th class="text-center" style="border-top: none; color: #ffc107; font-weight: normal">Atividade</th>
-                                    <th class="text-center" style="border-top: none; color: #dc3545; font-weight: normal">Energia</th>
+                                    <th class="text-center" style="border-top: none; color: #ffc107; font-weight: normal">Energia</th>
                                     <th class="text-center" style="border-top: none; color: #6c757d; font-weight: normal">Felicidade</th>
                                 </tr>
                             </thead>
@@ -38,27 +36,17 @@
                                     </td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-success" style="width:<%= @student.hunger %>%"></div>
+                                            <div class="progress-bar bg-success" style="width: <%= @student.hunger %> %"></div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-info" style="width: <%= @student.hunger %> %"></div>
+                                            <div class="progress-bar bg-info" style="width: <%= @student.energy %> %"></div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-warning" style="width: <%= @student.hunger %> "></div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-danger" style="width: <%= @student.hunger %> %"></div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-secondary" style="width: <%= @student.hunger %> %"></div>
+                                            <div class="progress-bar bg-warning" style="width: <%= @student.mood %> "></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -90,19 +78,14 @@
                         <table class="table" style="margin: 0">
                             <tr>
                                 <td style="border-top: none">
-                                    <button type="button" id="feed_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Fome">
-                                        <%= image_tag "fome.png", width:"48", class:"guedesbixa" %>
-                                    </button>
+                                    <div id="feed_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Fome"> <%= image_tag "fome.png", width:"48", class:"guedesbixa" %>
+                                      <%= link_to '', feed_path, id: "feed_link", method: :post %>
+                                    </div>
                                 </td>
                                 <td style="border-top: none">
-                                    <button type="button" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Higiene">
-                                        <%= image_tag "higiene.png", width:"48", class:"guedesbixa" %>
-                                    </button>
-                                </td>
-                                <td style="border-top: none">
-                                    <button type="button" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Intligência">
-                                        <%= image_tag "inteligencia.png", width:"48", class:"guedesbixa" %>
-                                    </button>
+                                    <div id="bath_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Energia"> <%= image_tag "higiene.png", width:"48", class:"guedesbixa" %>
+                                      <%= link_to '', bath_path, id: "bath_link", method: :post %>
+                                    </div>
                                 </td>
                                 <td style="border-top: none">
                                     <button type="button" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Atividade">
@@ -110,16 +93,16 @@
                                     </button>
                                 </td>
                                 <td style="border-top: none">
-                                    <button type="button" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Energia">
-                                        <%= image_tag "energia.png", width:"48", class:"guedesbixa" %>
-                                    </button>
+                                    <div id="sleep_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Energia"> <%= image_tag "energia.png", width:"48", class:"guedesbixa" %>
+                                      <%= link_to '', sleep_path, id: "sleep_link", method: :post %>
+                                    </div>
                                 </td>
                                 <td style="border-top: none">
-                                    <button type="button" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Felicidade" onclick= '<%= link_to "feed", feed_path, method: :post %> '>
-                                        <%= image_tag "felicidade.png", width:"48", class:"guedesbixa" %>
-                                    </button>
-                                    <%= link_to 'feed', feed_path, method: :post %>
+                                    <div id="play_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Felicidade"> <%= image_tag "felicidade.png", width:"48", class:"guedesbixa" %>
+                                      <%= link_to '', play_path, id: "play_link", method: :post %>
+                                    </div>
                                 </td>
+
                             </tr>
                         </table>
                     </div>
@@ -132,6 +115,7 @@
 </html>
 
 <script>
+
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
 
@@ -141,7 +125,26 @@
             'margin-top': ((altura-468)/2)+'px',
             'margin-bottom': ((altura-468)/2)+'px',
         });
+
+        $('#feed_btn').click(function() {
+          document.getElementById('feed_link').click()
+        });
+
+        $('#sleep_btn').click(function() {
+          document.getElementById('sleep_link').click()
+        });
+
+        $('#bath_btn').click(function() {
+          document.getElementById('bath_link').click()
+        });
+
+
+        $('#play_btn').click(function() {
+          document.getElementById('play_link').click()
+        });
+
     });
+
 </script>
 <!-- Small modal -->
 <div class="modal" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
