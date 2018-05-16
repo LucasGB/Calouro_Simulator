@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :students
 
-  post 'feed/:id' => 'students#feed', as: :feed
+  post 'feed/:id', to: 'students#feed', as: :feed
 
   root 'students#index'
 end

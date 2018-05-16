@@ -1,0 +1,52 @@
+<head>
+	 <meta http-equiv="refresh" content="30">
+</head>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @student.name %>
+</p>
+ 
+<p>
+  <strong>Idade:</strong>
+  <%= @student.age %>
+</p>
+
+<p>
+  <strong>Sexo:</strong>
+  <%= @student.gender %>
+</p>
+ 
+<p>
+  <strong>Curso:</strong>
+  <%= @student.bachelor_degree %>
+</p>
+
+<p>
+  <strong>Mood:</strong>
+  <%= @student.mood %>
+</p>
+
+<p>
+  <strong>Hunger:</strong>
+  <%= @student.hunger %>
+</p>
+
+<p>
+  <strong>Health:</strong>
+  <%= @student.health %>
+</p>
+
+<p>
+  <strong>Energy:</strong>
+  <%= @student.energy %>
+</p>
+
+<p>
+  <strong>Ultima atualização:</strong>
+  <%= @student.updated_at %>
+</p>
+
+<%= link_to 'Voltar', students_path %>
+
+<%= link_to 'feed', feed_path, :method => :post %>

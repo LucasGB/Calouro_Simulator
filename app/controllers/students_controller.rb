@@ -43,8 +43,16 @@ class StudentsController < ApplicationController
 
 	def feed
 		@student = Student.find(params[:id])
-		@student.hunger += 50
-		puts 'student fed.'
+
+		@student.hunger += 4
+		@student.health -= 1
+		@student.updated_at = Time.now
+
+		@student.save
+
+		puts 'FED.'
+
+		render 'show'
 	end
 
 	private
