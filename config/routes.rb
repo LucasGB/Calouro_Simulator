@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   post 'feed/:id', to: 'students#feed', as: :feed
   post 'sleep/:id', to: 'students#sleep', as: :sleep
   post 'bath/:id', to: 'students#bath', as: :bath
-  post 'play/:id', to: 'students#play', as: :play
+  post 'exercise/:id', to: 'students#exercise', as: :exercise
 
   root 'students#index'
 end

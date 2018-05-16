@@ -87,6 +87,22 @@ class StudentsController < ApplicationController
 
 	end
 
+	def exercise
+		@student = Student.find(params[:id])
+
+		@student.energy += 1
+		@student.health += 2
+
+		@student.updated_at = Time.now
+
+		@student.save
+
+		puts 'Exercised.'
+
+		redirect_to @student
+
+	end
+
 	def bath
 		@student = Student.find(params[:id])
 

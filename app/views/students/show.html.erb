@@ -31,22 +31,23 @@
                                 <tr>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar" style="width: <%= @student.hunger %> %"></div>
+                                            <div class="progress-bar" style="width:<%= @student.hunger %>%"></div>
                                         </div>                          
                                     </td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-success" style="width: <%= @student.hunger %> %"></div>
+                                            <div class="progress-bar bg-success" style="width:<%= @student.hunger %>%">
+                                            </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-info" style="width: <%= @student.energy %> %"></div>
+                                            <div class="progress-bar bg-warning" style="width:<%= @student.energy %>%"></div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-warning" style="width: <%= @student.mood %> "></div>
+                                            <div class="progress-bar bg-warning" style="width:<%= @student.mood%>%"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -78,31 +79,33 @@
                         <table class="table" style="margin: 0">
                             <tr>
                                 <td style="border-top: none">
-                                    <div id="feed_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Fome"> <%= image_tag "fome.png", width:"48", class:"guedesbixa" %>
-                                      <%= link_to '', feed_path, id: "feed_link", method: :post %>
+                                    <div id="feed_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Fome"> 
+                                      <%= link_to  feed_path, id: "feed_link", method: :post do %>
+                                        <%= image_tag "fome.png", width:"48", class:"guedesbixa" %>
+                                      <% end %>
                                     </div>
                                 </td>
                                 <td style="border-top: none">
-                                    <div id="bath_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Energia"> <%= image_tag "higiene.png", width:"48", class:"guedesbixa" %>
-                                      <%= link_to '', bath_path, id: "bath_link", method: :post %>
+                                    <div id="bath_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Higiene">
+                                      <%= link_to bath_path, id: "bath_link", method: :post do %>
+                                        <%= image_tag "higiene.png", width:"48", class:"guedesbixa" %>
+                                      <% end %>
                                     </div>
                                 </td>
                                 <td style="border-top: none">
-                                    <button type="button" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Atividade">
+                                    <div id="exercise_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Atividade"> 
+                                      <%= link_to exercise_path, id: "exercise_link", method: :post do %>
                                         <%= image_tag "atividade.png", width:"48", class:"guedesbixa" %>
-                                    </button>
-                                </td>
-                                <td style="border-top: none">
-                                    <div id="sleep_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Energia"> <%= image_tag "energia.png", width:"48", class:"guedesbixa" %>
-                                      <%= link_to '', sleep_path, id: "sleep_link", method: :post %>
+                                      <% end %>
                                     </div>
                                 </td>
                                 <td style="border-top: none">
-                                    <div id="play_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Felicidade"> <%= image_tag "felicidade.png", width:"48", class:"guedesbixa" %>
-                                      <%= link_to '', play_path, id: "play_link", method: :post %>
+                                    <div id="sleep_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Dormir"> 
+                                      <%= link_to  sleep_path, id: "sleep_link", method: :post do %>
+                                        <%= image_tag "energia.png", width:"48", class:"guedesbixa" %>
+                                      <% end %>
                                     </div>
                                 </td>
-
                             </tr>
                         </table>
                     </div>
@@ -125,24 +128,6 @@
             'margin-top': ((altura-468)/2)+'px',
             'margin-bottom': ((altura-468)/2)+'px',
         });
-
-        $('#feed_btn').click(function() {
-          document.getElementById('feed_link').click()
-        });
-
-        $('#sleep_btn').click(function() {
-          document.getElementById('sleep_link').click()
-        });
-
-        $('#bath_btn').click(function() {
-          document.getElementById('bath_link').click()
-        });
-
-
-        $('#play_btn').click(function() {
-          document.getElementById('play_link').click()
-        });
-
     });
 
 </script>
