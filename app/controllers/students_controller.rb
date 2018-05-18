@@ -22,16 +22,19 @@ class StudentsController < ApplicationController
 	def show
 		@student = Student.find(params[:id])
 
-		delta = @student.updated_at - Time.now
+		delta = Time.now - @student.last_page_refresh
 
-		@student.mood -= 2
-		@student.hunger -= 2
-		@student.health -= 2
-		@student.energy -= 2
+		if delta > 30
+			@student.mood -= 2
+			@student.hunger -= 2
+			@student.health -= 2
+			@student.energy -= 2
 
-		@student.updated_at = Time.now
+			@student.updated_at = Time.now
 
-		@student.save
+			@student.save
+		end
+
 	end
 
 	def destroy
