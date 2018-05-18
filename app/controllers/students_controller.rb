@@ -25,15 +25,23 @@ class StudentsController < ApplicationController
 		delta = Time.now - @student.last_page_refresh
 
 		if delta > 30
-			@student.mood -= 2
-			@student.hunger -= 2
-			@student.health -= 2
-			@student.energy -= 2
 
-			@student.updated_at = Time.now
+			while delta > 30 do
+				@student.mood -= 2
+				@student.hunger -= 2
+				@student.health -= 2
+				@student.energy -= 2
+
+				delta -= 30
+			end
+
+			@student.last_page_refresh = Time.now
 
 			@student.save
+
 		end
+
+		
 
 	end
 
