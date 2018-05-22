@@ -31,23 +31,23 @@
                                 <tr>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar" style="width:<%= @student.hunger %>%"></div>
+                                            <div class="progress-bar" id="hunger" style="width:<%= @student.hunger %>%"></div>
                                         </div>                          
                                     </td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-success" style="width:<%= @student.hunger %>%">
+                                            <div class="progress-bar bg-success" id="hygiene" style="width:<%= @student.hunger %>%">
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-warning" style="width:<%= @student.energy %>%"></div>
+                                            <div class="progress-bar bg-warning" id="energy" style="width:<%= @student.energy %>%"></div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-warning" style="width:<%= @student.mood%>%"></div>
+                                            <div class="progress-bar bg-warning" id="mood" style="width:<%= @student.mood%>%"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -80,30 +80,22 @@
                             <tr>
                                 <td style="border-top: none">
                                     <div id="feed_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Fome"> 
-                                      <%= link_to  feed_path, id: "feed_link", method: :post do %>
-                                        <%= image_tag "fome.png", width:"48", class:"guedesbixa" %>
-                                      <% end %>
+                                      <%= image_tag "fome.png", id: "feed_link", width:"48", class:"guedesbixa" %>
                                     </div>
                                 </td>
                                 <td style="border-top: none">
                                     <div id="bath_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Higiene">
-                                      <%= link_to bath_path, id: "bath_link", method: :post do %>
-                                        <%= image_tag "higiene.png", width:"48", class:"guedesbixa" %>
-                                      <% end %>
+                                      <%= image_tag "higiene.png", id: "bath_link", width:"48", class:"guedesbixa" %>
                                     </div>
                                 </td>
                                 <td style="border-top: none">
                                     <div id="exercise_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Atividade"> 
-                                      <%= link_to exercise_path, id: "exercise_link", method: :post do %>
-                                        <%= image_tag "atividade.png", width:"48", class:"guedesbixa" %>
-                                      <% end %>
+                                      <%= image_tag "atividade.png", id: "exercise_link", width:"48", class:"guedesbixa" %>
                                     </div>
                                 </td>
                                 <td style="border-top: none">
                                     <div id="sleep_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Dormir"> 
-                                      <%= link_to  sleep_path, id: "sleep_link", method: :post do %>
-                                        <%= image_tag "energia.png", width:"48", class:"guedesbixa" %>
-                                      <% end %>
+                                      <%= image_tag "energia.png", id: "sleep_link", width:"48", class:"guedesbixa" %>
                                     </div>
                                 </td>
                             </tr>
@@ -127,7 +119,90 @@
         $('#emoji').css({
             'margin-top': ((altura-468)/2)+'px',
             'margin-bottom': ((altura-468)/2)+'px',
+        
+
+
         });
+
+        $('#feed_link').click(function () {
+           $.ajax({
+            type: "GET",
+            url: "<%= feed_path %>",
+            dataType: "json",
+            success: function(student){
+                $('#hunger').css({
+                    'width': student.hunger.toString() + '%'
+                });
+            }
+           });
+        });
+
+        $('#bath_link').click(function () {
+           $.ajax({
+            type: "GET",
+            url: "<%= bath_path %>",
+            dataType: "json",
+            success: function(student){
+                $('#hygiene').css({
+                    'width': student.hunger.toString() + '%'
+                });
+            }
+           });
+        });
+
+        $('#exercise_link').click(function () {
+           $.ajax({
+            type: "GET",
+            url: "<%= exercise_path %>",
+            dataType: "json",
+            success: function(student){
+                $('#energy').css({
+                    'width': student.energy.toString() + '%'
+                });
+            }
+           });
+        });
+
+        $('#sleep_link').click(function () {
+           $.ajax({
+            type: "GET",
+            url: "<%= sleep_path %>",
+            dataType: "json",
+            success: function(student){
+                $('#energy').css({
+                    'width': student.energy.toString() + '%'
+                });
+            }
+           });
+        });
+
+        function update() {
+
+            $.ajax({
+                type: "GET",
+                url: "<%= update_path %>" ,
+                dataType: "json",
+                success: function(student) {
+                    $('#hunger').css({
+                        'width': student.hunger.toString() + '%'
+                    });
+                    $('#hygiene').css({
+                        'width': student.hunger.toString() + '%'
+                    });
+                    $('#energy').css({
+                        'width': student.energy.toString() + '%'
+                    });
+                    $('#mood').css({
+                        'width': student.mood.toString() + '%'
+                    });
+                }
+            });
+
+
+        };
+
+        setInterval(update, 5000);
+
     });
 
 </script>

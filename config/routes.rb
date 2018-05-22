@@ -5,10 +5,12 @@ Rails.application.routes.draw do
 
   resources :students
 
-  post 'feed/:id', to: 'students#feed', as: :feed
-  post 'sleep/:id', to: 'students#sleep', as: :sleep
-  post 'bath/:id', to: 'students#bath', as: :bath
-  post 'exercise/:id', to: 'students#exercise', as: :exercise
+  get 'feed/:id', to: 'students#feed', as: :feed
+  get 'sleep/:id', to: 'students#sleep', as: :sleep
+  get 'bath/:id', to: 'students#bath', as: :bath
+  get 'exercise/:id', to: 'students#exercise', as: :exercise
+
+  get 'update/:id', to: 'students#update', as: :update
 
   root 'students#index'
 end

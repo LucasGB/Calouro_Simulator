@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
 	before_action :authenticate_user!
+	skip_before_action :verify_authenticity_token
 
 	def index
   		@students = current_user.students
@@ -21,28 +22,7 @@ class StudentsController < ApplicationController
 
 	def show
 		@student = Student.find(params[:id])
-
-		delta = Time.now - @student.last_page_refresh
-
-		if delta > 30
-
-			while delta > 30 do
-				@student.mood -= 2
-				@student.hunger -= 2
-				@student.health -= 2
-				@student.energy -= 2
-
-				delta -= 30
-			end
-
-			@student.last_page_refresh = Time.now
-
-			@student.save
-
-		end
-
-		
-
+		tick(@student)	
 	end
 
 	def destroy
@@ -50,6 +30,17 @@ class StudentsController < ApplicationController
   		@student.destroy
  
   		redirect_to students_path
+	end
+
+	def update
+		@student = Student.find(params[:id])
+
+		tick(@student)
+
+		respond_to do |format|
+      		format.html
+      		format.json { render json: @student }
+      	end
 	end
 
 	def feed
@@ -61,9 +52,10 @@ class StudentsController < ApplicationController
 
 		@student.save
 
-		puts 'FED.'
-
-		redirect_to @student
+		respond_to do |format|
+      		format.html
+      		format.json { render json: @student }
+      	end
 	end
 
 	def sleep
@@ -76,13 +68,14 @@ class StudentsController < ApplicationController
 
 		@student.save
 
-		puts 'SLEPT.'
-
-		redirect_to @student
+		respond_to do |format|
+      		format.html
+      		format.json { render json: @student }
+      	end
 
 	end
 
-	def play
+	def exercise
 		@student = Student.find(params[:id])
 
 		@student.energy -= 6
@@ -92,25 +85,10 @@ class StudentsController < ApplicationController
 
 		@student.save
 
-		puts 'PLAYED.'
-
-		redirect_to @student
-
-	end
-
-	def exercise
-		@student = Student.find(params[:id])
-
-		@student.energy += 1
-		@student.health += 2
-
-		@student.updated_at = Time.now
-
-		@student.save
-
-		puts 'Exercised.'
-
-		redirect_to @student
+		respond_to do |format|
+      		format.html
+      		format.json { render json: @student }
+      	end
 
 	end
 
@@ -124,10 +102,30 @@ class StudentsController < ApplicationController
 
 		@student.save
 
-		puts 'PLAYED.'
+		respond_to do |format|
+      		format.html
+      		format.json { render json: @student }
+      	end
+	end
 
-		redirect_to @student
+	def tick(student)
+		delta = Time.now - student.last_page_refresh
 
+		if delta > 30
+
+			while delta > 30 do
+				student.mood -= 2
+				student.hunger -= 2
+				student.health -= 2
+				student.energy -= 2
+
+				delta -= 30
+			end
+
+			student.last_page_refresh = Time.now
+
+			student.save
+		end
 	end
 
 	private
