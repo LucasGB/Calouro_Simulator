@@ -109,17 +109,53 @@ class StudentsController < ApplicationController
 	end
 
 	def tick(student)
+		hungerRate = 0
+		hygieneRate = 0
+		energyRate = 0
+		moodRate = 0
+		healthRate = 0
+
 		delta = Time.now - student.last_page_refresh
 
-		if delta > 30
+		if student.mood > 75
+			hungerRate = 2
+			hygieneRate = 2
+			energyRate = 2
+			moodRate = 2
+			healthRate = 2
+			student.icon = "happy"
+		elsif student.mood <= 75 and student.mood > 50
+			hungerRate = 3
+			hygieneRate = 3
+			energyRate = 3
+			moodRate = 3
+			healthRate = 3
+			student.icon = "shy"
+		elsif student.mood <= 50 and student.mood > 25
+			hungerRate = 4
+			hygieneRate = 4
+			energyRate = 4
+			moodRate = 4
+			healthRate = 4
+			student.icon = "sad"
+		elsif student.mood <= 25 and student.mood > 0
+			hungerRate = 5
+			hygieneRate = 5
+			energyRate = 5
+			moodRate = 5
+			healthRate = 5
+			student.icon = "dead"
+		end
 
-			while delta > 30 do
-				student.mood -= 2
-				student.hunger -= 2
-				student.health -= 2
-				student.energy -= 2
+		if delta > 5
 
-				delta -= 30
+			while delta > 5 do
+				student.mood -= moodRate * Random.rand(0.5..2.0)
+				student.hunger -= hungerRate * Random.rand(0.5..1.5)
+				student.health -= healthRate * Random.rand(0.5..3)
+				student.energy -= energyRate * Random.rand(0.5..1.5)
+
+				delta -= 5
 			end
 
 			student.last_page_refresh = Time.now

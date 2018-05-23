@@ -16,7 +16,7 @@
         <div class="row" style="margin: 0">
             <div class="col-xl-12" style="min-height: 64px; background: #e9faff; padding: 0">
                 <div class="row" style="margin: 0">     
-                    <div class="col-lg-3"></div>
+                    <div class="col-lg-3"> <%= link_to 'voltar', root_path %> </div>
                     <div class="col-lg-6">
                         <table class="table">
                             <thead>
@@ -66,7 +66,7 @@
     <section>
         <div class="row" id="emoji" style="margin: 0">
             <div class="col-xl-12 text-center" style="padding: 0; height: 256px;">
-                <%= image_tag "shy.png", title:"Shy" %>
+                <%= image_tag @student.icon + ".png", id: "icon", title:"Shy" %>
             </div>
         </div>
     </section>
