@@ -48,6 +48,7 @@ class StudentsController < ApplicationController
 
 		@student.hunger += 4
 		@student.health -= 1
+		@student.mood += 2
 		@student.updated_at = Time.now
 
 		@student.save
@@ -63,6 +64,7 @@ class StudentsController < ApplicationController
 
 		@student.energy += 6
 		@student.health += 1
+		@student.mood += 2
 
 		@student.updated_at = Time.now
 
@@ -80,6 +82,7 @@ class StudentsController < ApplicationController
 
 		@student.energy -= 6
 		@student.health += 5
+		@student.mood += 2
 
 		@student.updated_at = Time.now
 
@@ -97,6 +100,7 @@ class StudentsController < ApplicationController
 
 		@student.energy += 1
 		@student.health += 2
+		@student.mood += 2
 
 		@student.updated_at = Time.now
 
