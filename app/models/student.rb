@@ -8,6 +8,7 @@ class Student < ApplicationRecord
 		self.hunger = 100
 		self.health = 100
 		self.energy = 100
+		self.hygiene = 100
 		self.icon = "happy"
 		self.last_page_refresh = Time.now()
 	end

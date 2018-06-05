@@ -9,7 +9,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/emoji.css">
 </head>
 
 <body>
@@ -32,12 +31,12 @@
                                 <tr>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar" id="hunger" style="width:<%= @student.hunger %>%"></div>
+                                            <div class="progress-bar bg-danger" id="hunger" style="width:<%= @student.hunger %>%"></div>
                                         </div>                          
                                     </td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-success" id="hygiene" style="width:<%= @student.hunger %>%">
+                                            <div class="progress-bar bg-success" id="hygiene" style="width:<%= @student.hygiene %>%">
                                             </div>
                                         </div>
                                     </td>
@@ -48,7 +47,7 @@
                                     </td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-warning" id="mood" style="width:<%= @student.mood%>%"></div>
+                                            <div class="progress-bar bg-secondary" id="mood" style="width:<%= @student.mood %>%"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -67,8 +66,7 @@
     <section>
         <div class="row" id="emoji" style="margin: 0">
             <div class="col-xl-12 text-center" style="padding: 0; height: 256px;">
-                <!--<%= image_tag @student.icon + ".png", id: "icon", title:"Shy" %> -->
-                <div class="smileEmoji"></div>
+                <div id="emojiGenerico"></div>
             </div>
         </div>
     </section>
@@ -188,19 +186,19 @@
         });
 
         function update() {
-
             $.ajax({
                 type: "GET",
                 url: "<%= update_path %>" ,
                 dataType: "json",
                 success: function(student) {
-                    console.log(student.icon.toString());
-       
+                    console.log('hunger: ', student.hunger.toString(),'   hygiene: ', student.hygiene.toString(),'   energy: ', student.energy.toString(),'   mood: ', student.mood.toString());
+                    $('#emojiGenerico').removeClass();
+                    $('#emojiGenerico').addClass(student.icon.toString());
                     $('#hunger').css({
                         'width': student.hunger.toString() + '%'
                     });
                     $('#hygiene').css({
-                        'width': student.hunger.toString() + '%'
+                        'width': student.hygiene.toString() + '%'
                     });
                     $('#energy').css({
                         'width': student.energy.toString() + '%'
@@ -210,8 +208,6 @@
                     });
                 }
             });
-
-
         };
 
         setInterval(update, 5000);

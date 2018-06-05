@@ -22,7 +22,8 @@ class StudentsController < ApplicationController
 
 	def show
 		@student = Student.find(params[:id])
-		tick(@student)	
+		fetch_info(@student)
+		tick(@student)
 	end
 
 	def destroy
@@ -112,16 +113,8 @@ class StudentsController < ApplicationController
       	end
 	end
 
-	def tick(student)
-		hungerRate = 0
-		hygieneRate = 0
-		energyRate = 0
-		moodRate = 0
-		healthRate = 0
-
-		delta = Time.now - student.last_page_refresh
-
-		if student.mood > 75
+	def fetch_info(student)
+	if student.mood > 75
 			hungerRate = 2
 			hygieneRate = 2
 			energyRate = 2
@@ -142,7 +135,7 @@ class StudentsController < ApplicationController
 			moodRate = 4
 			healthRate = 4
 			student.icon = "sad"
-		elsif student.mood <= 25 and student.mood > 0
+		elsif student.mood <= 25
 			hungerRate = 5
 			hygieneRate = 5
 			energyRate = 5
@@ -150,6 +143,17 @@ class StudentsController < ApplicationController
 			healthRate = 5
 			student.icon = "dead"
 		end
+	end
+
+
+	def tick(student)
+		hungerRate = 0
+		hygieneRate = 0
+		energyRate = 0
+		moodRate = 0
+		healthRate = 0
+
+		delta = Time.now - student.last_page_refresh
 
 		if delta > 5
 
