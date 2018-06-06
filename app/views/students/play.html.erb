@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Game Sample</title>
+</head>
+
+<body>
+<div>
+	<%= link_to "Voltar", student_path(@student), id: "Voltar" %>
+</div>
+<div class="container">
+    <!-- Phaser Game -->
+
+    <div id="game-container" class="center">
+    </div>
+</div>
+
+<!-- INCLUDES DAS LIBS -->
+
+<link rel="stylesheet" href="styles.css">
+<script type="text/javascript" src="/javascripts/lib/phaser.js"></script>
+
+<!-- INCLUDES DO JOGO -->
+
+
+<script type="text/javascript" src="/javascripts/game.js.erb"></script>
+
+</body>
+</html>

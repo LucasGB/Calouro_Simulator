@@ -23,7 +23,9 @@ class StudentsController < ApplicationController
 	def show
 		@student = Student.find(params[:id])
 
-		tick(@student)
+		if @student.icon != "dead"
+			tick(@student)
+		end
 	end
 
 	def destroy
@@ -34,13 +36,15 @@ class StudentsController < ApplicationController
 	end
 
 	def ranking
-		@students = Student.order(:created_at)
+		@students = Student.order(:coefficient)
 	end
 
 	def update
 		@student = Student.find(params[:id])
 
-		tick(@student)
+		if @student.icon != "dead"
+			tick(@student)
+		end
 
 		respond_to do |format|
       		format.html
@@ -51,12 +55,55 @@ class StudentsController < ApplicationController
 	def feed
 		@student = Student.find(params[:id])
 
-		@student.hunger += 4
-		@student.health -= 1
-		@student.mood += 2
-		@student.updated_at = Time.now
+		if @student.icon != "dead"
 
-		@student.save
+			@student.hunger += 4
+			@student.health -= 1
+			@student.mood += 2
+			@student.updated_at = Time.now
+
+			if @student.hunger > 100
+				@student.hunger = 100
+				@student.health = 50
+			end
+			if @student.health > 100
+				@student.health = 100
+			end	
+			if @student.mood > 100
+				@student.mood = 100
+			end
+
+			@student.save
+		end
+	
+		respond_to do |format|
+    		format.html
+    		format.json { render json: @student }
+    	end
+	end
+
+	def cure
+		@student = Student.find(params[:id])
+
+		if @student.icon != "dead"
+			@student.energy += 2
+			@student.health += 5
+			@student.mood += 3
+
+			if @student.energy > 100
+				@student.energy = 100
+			end
+			if @student.health > 100
+				@student.health = 20
+			end
+			if @student.mood > 100
+				@student.mood = 100
+			end
+
+			@student.updated_at = Time.now
+
+			@student.save
+		end
 
 		respond_to do |format|
       		format.html
@@ -64,16 +111,33 @@ class StudentsController < ApplicationController
       	end
 	end
 
+	def play
+		@student = Student.find(params[:id])
+	end
+
 	def sleep
 		@student = Student.find(params[:id])
 
-		@student.energy += 6
-		@student.health += 1
-		@student.mood += 2
+		if @student.icon != "dead"
 
-		@student.updated_at = Time.now
+			@student.energy += 6
+			@student.health += 1
+			@student.mood += 2
 
-		@student.save
+			if @student.energy > 100
+				@student.energy = 100
+			end
+			if @student.health > 100
+				@student.health = 100
+			end
+			if @student.mood > 100
+				@student.mood = 100
+			end
+
+			@student.updated_at = Time.now
+
+			@student.save
+		end
 
 		respond_to do |format|
       		format.html
@@ -85,13 +149,23 @@ class StudentsController < ApplicationController
 	def exercise
 		@student = Student.find(params[:id])
 
-		@student.energy -= 6
-		@student.health += 5
-		@student.mood += 2
+		if @student.icon != "dead"
 
-		@student.updated_at = Time.now
+			@student.energy -= 6
+			@student.health += 5
+			@student.mood += 2
 
-		@student.save
+			if @student.health > 100
+				@student.health = 100
+			end
+			if @student.mood > 100
+				@student.mood = 100
+			end
+
+			@student.updated_at = Time.now
+
+			@student.save
+		end
 
 		respond_to do |format|
       		format.html
@@ -103,13 +177,68 @@ class StudentsController < ApplicationController
 	def bath
 		@student = Student.find(params[:id])
 
-		@student.energy += 1
-		@student.health += 2
-		@student.mood += 2
+		if @student.icon != "dead"
 
-		@student.updated_at = Time.now
+			@student.energy += 1
+			@student.hygiene += 10
+			@student.health += 2
+			@student.mood += 2
 
-		@student.save
+			if @student.energy > 100
+				@student.energy = 100
+			end
+			if @student.health > 100
+				@student.health = 100
+			end
+			if @student.mood > 100
+				@student.mood = 100
+			end
+			if @student.hygiene > 100
+				@student.hygiene = 100
+			end
+
+			@student.updated_at = Time.now
+
+			@student.save
+		end
+
+		respond_to do |format|
+      		format.html
+      		format.json { render json: @student }
+      	end
+	end
+
+	def study
+		@student = Student.find(params[:id])
+
+		if @student.icon != "dead"
+
+			@student.energy += 10
+			@student.hygiene += 5
+			@student.health += 3
+			@student.mood += 5
+			@student.coefficient += 0.01
+
+			if @student.energy > 100
+				@student.energy = 100
+			end
+			if @student.health > 100
+				@student.health = 100
+			end
+			if @student.mood > 100
+				@student.mood = 100
+			end
+			if @student.hygiene > 100
+				@student.hygiene = 100
+			end
+			if @student.coefficient > 1.0
+				@student.coefficient = 1.0
+			end
+
+			@student.updated_at = Time.now
+
+			@student.save
+		end
 
 		respond_to do |format|
       		format.html
@@ -124,7 +253,28 @@ class StudentsController < ApplicationController
 		moodRate = 0
 		healthRate = 0
 
-		if student.mood > 75
+		if student.mood <= 0 or student.health <= 0
+			student.icon = "dead"
+			student.mood = 0
+			student.health = 0
+			student.hygiene = 0
+			student.hunger = 0
+			student.energy = 0
+		elsif student.health <= 50 and student.health > 0
+			hungerRate = 10
+			hygieneRate = 10
+			energyRate = 10
+			moodRate = 20
+			healthRate = 10
+			student.icon = "sick"
+		elsif student.health <= 25 and student.health > 0
+			hungerRate = 20
+			hygieneRate = 20
+			energyRate = 20
+			moodRate = 30
+			healthRate = 20
+			student.icon = "sick"
+		elsif student.mood > 75
 			hungerRate = 2
 			hygieneRate = 2
 			energyRate = 2
@@ -151,7 +301,7 @@ class StudentsController < ApplicationController
 			energyRate = 5
 			moodRate = 5
 			healthRate = 5
-			student.icon = "dead"
+			student.icon = "cry"
 		end
 
 		delta = Time.now - student.last_page_refresh
@@ -164,6 +314,7 @@ class StudentsController < ApplicationController
 				student.mood -= moodRate * Random.rand(0.5..2.0)
 				student.hunger -= hungerRate * Random.rand(0.5..1.5)
 				student.health -= healthRate * Random.rand(0.5..3)
+				student.hygiene -= hygieneRate * Random.rand(0.5..3)
 				student.energy -= energyRate * Random.rand(0.5..1.5)
 
 				delta -= 5

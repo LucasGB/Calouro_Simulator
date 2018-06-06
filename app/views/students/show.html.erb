@@ -22,6 +22,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center" style="border-top: none; color: #dc3545; font-weight: normal">Fome</th>
+                                    <th class="text-center" style="border-top: none; color: #28a745; font-weight: normal">Saúde</th>
                                     <th class="text-center" style="border-top: none; color: #28a745; font-weight: normal">Higiene</th>
                                     <th class="text-center" style="border-top: none; color: #ffc107; font-weight: normal">Energia</th>
                                     <th class="text-center" style="border-top: none; color: #6c757d; font-weight: normal">Felicidade</th>
@@ -32,6 +33,11 @@
                                     <td>
                                         <div class="progress">
                                             <div class="progress-bar bg-danger" id="hunger" style="width:<%= @student.hunger %>%"></div>
+                                        </div>                          
+                                    </td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" id="health" style="width:<%= @student.health %>%"></div>
                                         </div>                          
                                     </td>
                                     <td>
@@ -50,6 +56,7 @@
                                             <div class="progress-bar bg-secondary" id="mood" style="width:<%= @student.mood %>%"></div>
                                         </div>
                                     </td>
+                                    <label id="coeficiente"> Coeficiente: <%= @student.coefficient %> </label>
                                 </tr>
                             </tbody>
                         </table>
@@ -66,7 +73,7 @@
     <section>
         <div class="row" id="emoji" style="margin: 0">
             <div class="col-xl-12 text-center" style="padding: 0; height: 256px;">
-                <div id="emojiGenerico"></div>
+                <div id="emojiGenerico", class="<%= @student.icon %>"></div>
             </div>
         </div>
     </section>
@@ -89,13 +96,30 @@
                                     </div>
                                 </td>
                                 <td style="border-top: none">
+                                    <div id="health_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Remédio">
+                                      <%= image_tag "health.png", id: "cure_link", width:"48", class:"guedesbixa" %>
+                                    </div>
+                                </td>
+                                <td style="border-top: none">
                                     <div id="exercise_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Atividade"> 
                                       <%= image_tag "atividade.png", id: "exercise_link", width:"48", class:"guedesbixa" %>
                                     </div>
                                 </td>
                                 <td style="border-top: none">
+                                    <%= link_to play_path, :method => :get do %>
+                                        <div id="exercise_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Exercise"> 
+                                        <%= image_tag "play.png", id: "play_link", width:"48", class:"guedesbixa" %>
+                                        </div>
+                                    <% end %>
+                                </td>
+                                <td style="border-top: none">
+                                    <div id="study_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Study"> 
+                                        <%= image_tag "study.png", id: "study_link", width:"48", class:"guedesbixa" %>
+                                        </div>
+                                </td>
+                                <td style="border-top: none">
                                     <div id="sleep_btn" class="btn" style="background: #e9faff"  data-toggle="tooltip" title="Dormir"> 
-                                      <%= image_tag "energia.png", id: "sleep_link", width:"48", class:"guedesbixa" %>
+                                      <%= image_tag "sleep.png", id: "sleep_link", width:"48", class:"guedesbixa" %>
                                     </div>
                                 </td>
                             </tr>
@@ -137,6 +161,22 @@
            });
         });
 
+        $('#cure_link').click(function () {
+           $.ajax({
+            type: "GET",
+            url: "<%= cure_path %>",
+            dataType: "json",
+            success: function(student){
+                $('#health').css({
+                    'width': student.health.toString() + '%'
+                });
+                $('#mood').css({
+                    'width': student.mood.toString() + '%'
+                });
+            }
+           });
+        });
+
         $('#bath_link').click(function () {
            $.ajax({
             type: "GET",
@@ -144,7 +184,7 @@
             dataType: "json",
             success: function(student){
                 $('#hygiene').css({
-                    'width': student.hunger.toString() + '%'
+                    'width': student.hygiene.toString() + '%'
                 });
                 $('#mood').css({
                     'width': student.mood.toString() + '%'
@@ -185,6 +225,17 @@
            });
         });
 
+        $('#study_link').click(function () {
+           $.ajax({
+            type: "GET",
+            url: "<%= study_path %>",
+            dataType: "json",
+            success: function(student){
+                document.getElementById('coeficiente').innerHTML = 'Coeficiente: <%= @student.coefficient %>';
+            }
+           });
+        });
+
         function update() {
             $.ajax({
                 type: "GET",
@@ -196,6 +247,9 @@
                     $('#emojiGenerico').addClass(student.icon.toString());
                     $('#hunger').css({
                         'width': student.hunger.toString() + '%'
+                    });
+                    $('#health').css({
+                        'width': student.health.toString() + '%'
                     });
                     $('#hygiene').css({
                         'width': student.hygiene.toString() + '%'
