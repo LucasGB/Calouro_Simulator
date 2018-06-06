@@ -22,7 +22,7 @@ class StudentsController < ApplicationController
 
 	def show
 		@student = Student.find(params[:id])
-		fetch_info(@student)
+
 		tick(@student)
 	end
 
@@ -31,6 +31,10 @@ class StudentsController < ApplicationController
   		@student.destroy
  
   		redirect_to students_path
+	end
+
+	def ranking
+		@students = Student.order(:created_at)
 	end
 
 	def update
@@ -113,8 +117,14 @@ class StudentsController < ApplicationController
       	end
 	end
 
-	def fetch_info(student)
-	if student.mood > 75
+	def tick(student)
+		hungerRate = 0
+		hygieneRate = 0
+		energyRate = 0
+		moodRate = 0
+		healthRate = 0
+
+		if student.mood > 75
 			hungerRate = 2
 			hygieneRate = 2
 			energyRate = 2
@@ -143,21 +153,14 @@ class StudentsController < ApplicationController
 			healthRate = 5
 			student.icon = "dead"
 		end
-	end
-
-
-	def tick(student)
-		hungerRate = 0
-		hygieneRate = 0
-		energyRate = 0
-		moodRate = 0
-		healthRate = 0
 
 		delta = Time.now - student.last_page_refresh
 
 		if delta > 5
 
 			while delta > 5 do
+
+
 				student.mood -= moodRate * Random.rand(0.5..2.0)
 				student.hunger -= hungerRate * Random.rand(0.5..1.5)
 				student.health -= healthRate * Random.rand(0.5..3)

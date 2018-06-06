@@ -1,5 +1,6 @@
 <table>
   <tr>
+    <th>Usuario</th>
     <th>Nome</th>
     <th>Idade</th>
     <th>Sexo</th>
@@ -9,20 +10,13 @@
  
   <% @students.each do |student| %>
     <tr>
+      <td><%= student.user.email %></td>
       <td><%= student.name %></td>
       <td><%= student.age %></td>
       <td><%= student.gender %></td>
       <td><%= student.bachelor_degree %></td>
-      <td><%= link_to 'Mostrar', student_path(student) %></td>
-      <td><%= link_to 'Excluir', student_path(student), method: :delete %></td>
     </tr>
   <% end %>
 </table>
 
-<%= link_to 'Novo universitario', new_student_path %>
-
 <%= link_to 'Voltar', root_path %>
-
-<%= link_to "Sair", destroy_user_session_path, :method => :delete %>
-
-<%= link_to 'Ranking', ranking_path %>

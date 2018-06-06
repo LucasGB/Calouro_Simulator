@@ -12,5 +12,7 @@ Rails.application.routes.draw do
 
   get 'update/:id', to: 'students#update', as: :update
 
+  get 'ranking', to: 'students#ranking', as: :ranking
+
   root 'students#index'
 end
