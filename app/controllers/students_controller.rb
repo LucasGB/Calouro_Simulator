@@ -115,6 +115,26 @@ class StudentsController < ApplicationController
 		@student = Student.find(params[:id])
 	end
 
+	def convert_points
+		@student = Student.find(params[:id])
+
+		puts 'shashasa', params[:id]
+		@student.mood += params[:mood].to_i
+		@student.energy -= params[:energy].to_i
+
+		if @student.mood > 100
+			@student.mood = 100
+		end
+		if @student.energy < 0
+			@student.energy = 0
+		end
+
+		@student.updated_at = Time.now
+		@student.save
+
+		redirect_to student_path(@student)
+	end
+
 	def sleep
 		@student = Student.find(params[:id])
 

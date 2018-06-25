@@ -1,6 +1,8 @@
 var Jumper = function() {};
 Jumper.Play = function() {};
 
+var score = 0;
+
 Jumper.Play.prototype = {
 
   preload: function() {
@@ -72,6 +74,7 @@ Jumper.Play.prototype = {
     this.hero = null;
     this.platforms.destroy();
     this.platforms = null;
+
   },
 
   platformsCreate: function() {
@@ -129,6 +132,7 @@ Jumper.Play.prototype = {
     // handle hero jumping
     if( this.cursor.up.isDown && this.hero.body.touching.down ) {
       this.hero.body.velocity.y = -350;
+      score += 1
     } 
     
     // wrap world coordinated so that you can warp from left to right and right to left
@@ -139,7 +143,13 @@ Jumper.Play.prototype = {
     
     // if the hero falls below the camera view, gameover
     if( this.hero.y > this.cameraYMin + this.game.height && this.hero.alive ) {
-      document.getElementById('Voltar').click();
+
+      $.ajax({
+            type: "PUT",
+            url: convert_points_path,
+            data: {mood: score * 0.8, energy: score * 0.3},
+           });
+      this.shutdown();
     }
   }
 }

@@ -1,26 +1,71 @@
-<%= form_for @student do |form| %>
-  <p>
-    <%= form.label :nome %><br>
-    <%= form.text_field :name %>
-  </p>
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<title>Login</title>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			<link rel="stylesheet" type="text/css" href="/assets/bootstrap.min.css">
+			<link rel="stylesheet" type="text/css" href="/assets/font-awesome.min.css">
+			<link rel="stylesheet" type="text/css" href="/assets/icon-font.min.css">
+			<link rel="stylesheet" type="text/css" href="/assets/animate.css">
+			<link rel="stylesheet" type="text/css" href="/assets/hamburgers.min.css">
+			<link rel="stylesheet" type="text/css" href="/assets/animsition.min.css">
+			<link rel="stylesheet" type="text/css" href="/assets/select2.min.css">
+			<link rel="stylesheet" type="text/css" href="/assets/util.css">
+			<link rel="stylesheet" type="text/css" href="/assets/main.css">
+		</head>
+		<body>
+			<div class="limiter">
+				<div class="container-login100">
+					<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
 
-  <p>
-    <%= form.label :idade %><br>
-    <%= form.text_field :age %>
-  </p>
+						<%= form_for @student do |f| %>
+							<span class="login100-form-title p-b-33">
+								Novo Universitário
+							</span>
+		
+							<div class="wrap-input100 validate-input">
+						    	<%= f.text_field :name, autofocus: true, class: "input100", type: "text", placeholder: "Nome" %>
+						    	<span class="focus-input100-1"></span>
+								<span class="focus-input100-2"></span>
+						  	</div>
 
-  <p>
-    <%= form.label :sexo %><br>
-    <%= form.text_field :gender %>
-  </p>
+						  	<div class="wrap-input100 validate-input">
+						    	<%= f.text_field :age, autofocus: true, class: "input100", type: "text", placeholder: "Idade" %>
+						    	<span class="focus-input100-1"></span>
+								<span class="focus-input100-2"></span>
+						  	</div>
 
-  <p>
-    <%= form.label :curso %><br>
-    <%= form.text_field :bachelor_degree %>
-  </p>
-    
-  <p>
-    <%= form.submit %>
-  </p>
-  
-<% end %>
+						  	<div class="wrap-input100 validate-input">
+						    	<%= f.text_field :gender, autofocus: true, class: "input100", type: "text", placeholder: "Sexo" %>
+						    	<span class="focus-input100-1"></span>
+								<span class="focus-input100-2"></span>
+						  	</div>
+
+						  	<div class="wrap-input100 validate-input">
+						    	<%= f.text_field :bachelor_degree, autofocus: true, class: "input100", type: "text", placeholder: "Curso" %>
+						    	<span class="focus-input100-1"></span>
+								<span class="focus-input100-2"></span>
+						  	</div>
+
+						  	<div class="container-login100-form-btn m-t-20">
+								<button class="login100-form-btn">
+									Criar
+									<%= f.submit "" %>
+								</button>
+							</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+
+			<script src="/assets/jquery-3.2.1.min.js"></script>
+			<script src="/assets/animsition.min.js"></script>
+			<script src="/assets/bootstrap1.min.js"></script>
+			<script src="/assets/select2.min.js"></script>
+			<script src="/assets/moment1.min.js"></script>
+			<script src="/assets/countdowntime.js"></script>
+			<script src="/assets/main.js"></script>
+	<!--		<%= javascript_include_tag "/assets/main" %> -->
+		</body>
+	</html>

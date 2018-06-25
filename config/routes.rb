@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'exercise/:id', to: 'students#exercise', as: :exercise
   get 'cure/:id', to: 'students#cure', as: :cure
   get 'study/:id', to: 'students#study', as: :study
+  put 'convert_points/:id', to: 'students#convert_points', as: :convert_points
 
   get 'update/:id', to: 'students#update', as: :update
 
