@@ -87,7 +87,7 @@ class StudentsController < ApplicationController
 
 		if @student.icon != "dead"
 			@student.energy += 2
-			@student.health += 5
+			@student.health += 20
 			@student.mood += 3
 
 			if @student.energy > 100
@@ -117,8 +117,6 @@ class StudentsController < ApplicationController
 
 	def convert_points
 		@student = Student.find(params[:id])
-
-		puts 'shashasa', params[:id]
 		@student.mood += params[:mood].to_i
 		@student.energy -= params[:energy].to_i
 
@@ -140,7 +138,7 @@ class StudentsController < ApplicationController
 
 		if @student.icon != "dead"
 
-			@student.energy += 6
+			@student.energy += 50
 			@student.health += 1
 			@student.mood += 2
 
@@ -171,8 +169,8 @@ class StudentsController < ApplicationController
 
 		if @student.icon != "dead"
 
-			@student.energy -= 6
-			@student.health += 5
+			@student.energy -= 20
+			@student.health += 20
 			@student.mood += 2
 
 			if @student.health > 100
@@ -200,7 +198,7 @@ class StudentsController < ApplicationController
 		if @student.icon != "dead"
 
 			@student.energy += 1
-			@student.hygiene += 10
+			@student.hygiene += 40
 			@student.health += 2
 			@student.mood += 2
 
@@ -233,11 +231,11 @@ class StudentsController < ApplicationController
 
 		if @student.icon != "dead"
 
-			@student.energy += 10
-			@student.hygiene += 5
-			@student.health += 3
-			@student.mood += 5
-			@student.coefficient += 0.01
+			@student.energy -= 35
+			@student.hygiene -= 10
+			@student.health -= 10
+			@student.mood -= 20
+			@student.coefficient += 0.05
 
 			if @student.energy > 100
 				@student.energy = 100

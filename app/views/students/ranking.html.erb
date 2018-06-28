@@ -1,24 +1,58 @@
-<table>
-  <tr>
-    <th>Usuario</th>
-    <th>Nome</th>
-    <th>Idade</th>
-    <th>Sexo</th>
-    <th>Curso</th>
-    <th>Coeficiente</th>
-    <th colspan="2"></th>
-  </tr>
- 
-  <% @students.each do |student| %>
-    <tr>
-      <td><%= student.user.email %></td>
-      <td><%= student.name %></td>
-      <td><%= student.age %></td>
-      <td><%= student.gender %></td>
-      <td><%= student.bachelor_degree %></td>
-      <td><%= student.coefficient %></td>
-    </tr>
-  <% end %>
-</table>
+<!DOCTYPE html>
+<html lang="en">
 
-<%= link_to 'Voltar', root_path %>
+<head>
+    <title>Tabela de Rancking</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background: #e9faff;">
+    <section>
+        <div class="row" style="margin: 0">
+            <div class="col-xl-2" style="padding: 0;"></div>
+            <div class="col-xl-8" style="padding: 0; margin-top: 10px;">
+                <div class="row" style="margin: 0">
+                    <table class="table">
+                        <thead>
+                            <tr class="table-secondary">
+                                <th>Usuário</th>
+                                <th class="text-center">Nome do Pet</th>
+                                <th class="text-center">Idade</th>
+                                <th class="text-center">Sexo</th>
+                                <th class="text-center">Curso</th>
+                                <th class="text-center">Coeficiente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <% @students.each do |student| %>
+                                    <tr>
+                                        <td class="text-center"><%= student.user.email %></td>
+                                        <td class="text-center"><%= student.name %></td>
+                                        <td class="text-center"><%= student.age %></td>
+                                        <td class="text-center"><%= student.gender %></td>
+                                        <td class="text-center"><%= student.bachelor_degree %></td>
+                                        <td class="text-center"><%= student.coefficient %></td>
+                                     </tr>
+                                <% end %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <%= link_to root_path, :method => :get do %>
+                    <button type="button" class="btn btn-primary float-right" style="margin-right: 10px; margin-top: 10px;">Voltar</button>
+                <% end %>
+                
+            </div>
+            <div class="col-xl-2" style="padding: 0;"></div>
+        </div>
+    </section>
+</body>
+
+</html>

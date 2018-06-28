@@ -1,28 +1,76 @@
-<table>
-  <tr>
-    <th>Nome</th>
-    <th>Idade</th>
-    <th>Sexo</th>
-    <th>Curso</th>
-    <th colspan="2"></th>
-  </tr>
- 
-  <% @students.each do |student| %>
-    <tr>
-      <td><%= student.name %></td>
-      <td><%= student.age %></td>
-      <td><%= student.gender %></td>
-      <td><%= student.bachelor_degree %></td>
-      <td><%= link_to 'Mostrar', student_path(student) %></td>
-      <td><%= link_to 'Excluir', student_path(student), method: :delete %></td>
-    </tr>
-  <% end %>
-</table>
+<!DOCTYPE html>
+<html lang="en">
 
-<%= link_to 'Novo universitario', new_student_path %>
+<head>
+    <title>Tabela de Rancking</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<%= link_to 'Voltar', root_path %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
 
-<%= link_to "Sair", destroy_user_session_path, :method => :delete %>
+<body style="background: #e9faff;">
+    <section>
+        <div class="row" style="margin: 0">
+            <div class="col-xl-2" style="padding: 0;"></div>
+            <div class="col-xl-8" style="padding: 0; margin-top: 10px;">
+                <div class="row" style="margin: 0">
+                    <table class="table">
+                        <thead>
+                            <tr class="table-secondary">
+                                <th class="text-center">Nome do Pet</th>
+                                <th class="text-center">Idade</th>
+                                <th class="text-center">Sexo</th>
+                                <th class="text-center">Curso</th>
+                                <th class="text-center">Coeficiente</th>
+                                <th class="text-center">Mostrar</th>
+                                <th class="text-center">Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <% @students.each do |student| %>
+                                    <tr>
+                                        <td class="text-center"><%= student.name %></td>
+                                        <td class="text-center"><%= student.age %></td>
+                                        <td class="text-center"><%= student.gender %></td>
+                                        <td class="text-center"><%= student.bachelor_degree %></td>
+                                        <td class="text-center"><%= student.coefficient %></td>
+                                        <td class="text-center">
+                                            <%= link_to student_path(student), :method => :get do %>
+                                                <button type="button" class="btn btn-primary float-right" style="margin-right: 10px; margin-top: 10px;">Mostrar</button>
+                                            <% end %>
+                                        </td>
+                                        <td class="text-center">
+                                            <%= link_to student_path(student), method: :delete do %>
+                                                <button type="button" class="btn btn-primary float-right" style="margin-right: 10px; margin-top: 10px;">Excluir</button>
+                                            <% end %>
+                                        </td>
+                                     </tr>
+                                <% end %>
+                        </tbody>
+                    </table>
+                </div>
 
-<%= link_to 'Ranking', ranking_path %>
+                <%= link_to destroy_user_session_path, method: :delete do %>
+                    <button type="button" class="btn btn-primary float-right" style="margin-right: 10px; margin-top: 10px;">Sair</button>
+                <% end %>
+
+                <%= link_to new_student_path do %>
+                    <button type="button" class="btn btn-primary float-right" style="margin-right: 10px; margin-top: 10px;">Novo universitario</button>
+                <% end %>
+
+                <%= link_to ranking_path, method: :get do %>
+                    <button type="button" class="btn btn-primary float-right" style="margin-right: 10px; margin-top: 10px;">Ranking</button>
+                <% end %>
+                
+            </div>
+            <div class="col-xl-2" style="padding: 0;"></div>
+        </div>
+    </section>
+</body>
+
+</html>

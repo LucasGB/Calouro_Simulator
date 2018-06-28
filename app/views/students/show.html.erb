@@ -235,6 +235,19 @@
             dataType: "json",
             success: function(student){
                 document.getElementById('coeficiente').innerHTML = 'Coeficiente: <%= @student.coefficient %>';
+
+                $('#energy').css({
+                    'width': student.energy.toString() + '%'
+                });
+                $('#hygiene').css({
+                    'width': student.hygiene.toString() + '%'
+                });
+                $('#health').css({
+                    'width': student.health.toString() + '%'
+                });
+                $('#mood').css({
+                    'width': student.mood.toString() + '%'
+                });
             }
            });
         });
